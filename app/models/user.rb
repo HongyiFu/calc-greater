@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence:true, uniqueness:true, format: {with: VALID_EMAIL_REGEX}
+  validates :email, presence:true, uniqueness: { case_sensitive: false }, format: {with: VALID_EMAIL_REGEX}
   validates :username, presence:true, uniqueness:true
   validates :password, length: { in: 8..20 }, format: {with: /(?:.*\d+.*[^\W_\d]+.*|.*[^\W_\d]+.*\w.*)/, message:"must be a combination of at least 1 alphabet and at least 1 number"}
 
