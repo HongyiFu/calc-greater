@@ -22,8 +22,10 @@ class Portfolio < ApplicationRecord
 	end
 
 	def ensure_cash_in_correct_format
-		self.cash.gsub!(/[^\d\.-]/,'')
-		self.cash = self.cash.to_f
-		self.cash = self.cash.to_s
+		if !self.cash.nil?
+			self.cash.gsub!(/[^\d\.-]/,'')
+			self.cash = self.cash.to_f
+			self.cash = self.cash.to_s
+		end
 	end
 end
