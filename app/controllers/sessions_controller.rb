@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
       notice = "Successful sign up and you are now signed in!"
     end
     sign_in(user)
-    redirect_to root_path, notice:notice
+    redirect_to root_path, success:notice
   end
 
 end
