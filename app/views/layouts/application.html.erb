@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CalcGreater</title>
+    <%= csrf_meta_tags %>
+		
+		<!-- Google fonts -->
+  	<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Ubuntu" rel="stylesheet">
+    
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- Google Charts-->
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+    
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body data-turbolinks='false'>
+
+  	<!-- nav bar -->
+	  <nav class="navbar navbar-inverse navbar-fixed-top">
+	    <div class="container-fluid">
+	      <!-- Brand and toggle get grouped for better mobile display -->
+	      <div class="navbar-header">
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	        <div class="navbar-brand" href="/">
+	        	<a href="/"><%= image_tag "Logo.png", alt:"Calc Greater", id:"logo" %></a>
+	        </div>
+	      </div>
+
+	      <!-- Collect the nav links, forms, and other content for toggling -->
+	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	        <ul class="nav navbar-nav">
+	          <li id="calculator-tab"><a href="/">CALCULATOR</a></li>
+	          <li id='portfolio-tab'><%= link_to "PORTFOLIO", portfolios_path %></li>
+	        </ul>
+	        <form class="navbar-form navbar-left" method="get" action="/search">
+	          <div class="form-group">
+	            <input type="text" class="form-control" placeholder="Search stock by symbol" name="sym">
+	          </div>
+	          <button type="submit" class="btn btn-default">Search</button>
+	        </form>
+	        
+	        <ul class="nav navbar-nav navbar-right">
+	          <li><a href="#">ABOUT US</a></li>
+	          <% if !logged_in? %>
+		          <li class="dropdown">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are not signed in <span class="caret"></span></a>
+		            <ul class="dropdown-menu">
+		              <li><a href="/sign-up" data-toggle="modal" data-target="#signUpModal">Sign Up</a></li>
+		              <li role="separator" class="divider"></li>
+		              <li><a href="/sign-in" data-toggle="modal" data-target="#signInModal">Sign In</a></li>
+		              <li><%= link_to "Sign in with Facebook", "/auth/facebook" %></li>
+		            </ul>
+		          </li>
+		       	<% else %>
+		       		<li class="dropdown">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are signed in as <%= current_user.username %> <span class="caret"></span></a>
+		            <ul class="dropdown-menu">
+		              <li><a href="#">Profile</a></li>
+		              <li role="separator" class="divider"></li>
+		              <li><%= link_to 'Sign Out', session_path, method: :delete %></li>
+		            </ul>
+		          </li>
+		        <% end %>
+	        </ul>
+	      </div><!-- /.navbar-collapse -->
+	    </div><!-- /.container-fluid -->
+	  </nav><!-- end of nav bar -->
+
+	  <div id="signUpModal" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+
+	      <!-- Modal content-->
+	      <div class="modal-content">
+
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Sign up to get market update and keep track of your portfolio!</h4>
+	        </div>
+
+	        <div class="modal-body">
+	          <%= simple_form_for(User.new, data:{remote:true}) do |f| %>
+        		  <%= f.input :email, placeholder: 'user@domain.com' %>
+        		  <%= f.input :username, label: 'Your username to be displayed', hint: "You may leave this field blank in which case your email prefix will be used as username. E.g. email: my-email@domain.com => username: my-email" %>
+        		  <%= f.input :password, required: true, hint: 'Password should be at least 8 characters long and consists of at least 1 alphabet and 1 digit.' %>
+        		  <%= f.input :password_confirmation, required: true, label: "Confirm your password" %>
+        		  <%= f.input :remember_token, inline_label: 'Remember me (stay logged in for 2 weeks)' %>
+        		  <%= f.button :submit, "Create Account" %>
+        		<% end %>
+	        </div>
+
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+
+	      </div>
+
+	    </div>
+	  </div>
+
+	  <div id="signInModal" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+
+	      <!-- Modal content-->
+	      <div class="modal-content">
+
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Sign In</h4>
+	        </div>
+
+	        <div class="modal-body">
+	          <%= form_tag('/session', data:{remote:true}) do %>
+	          	<%= label_tag 'email' %>
+	          	<% if cookies.signed[:email] %>
+        		  	<%= email_field_tag 'email', cookies.signed[:email] %>
+	          	<% else %>
+        		  	<%= email_field_tag 'email', nil, placeholder: 'user@domain.com' %>
+        		  <% end %>
+	          	<%= label_tag 'password' %>
+        		  <%= password_field_tag 'password' %>
+        		  <br><br>
+        		  <%= check_box_tag :remember_token %> 
+        		  <%= label_tag :remember_token, 'Remember me (stay logged in for 2 weeks)' %>
+        		  <br><br><br>
+        		  <%= submit_tag "Sign In" %>
+        		<% end %>
+	        </div>
+
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+
+	      </div>
+
+	    </div>
+	  </div>
+  	
+  	<div class="content container">
+
+  		<div id="warning" class="container alert alert-danger" style="font-size:20px; color:#807caf">
+  			<strong>
+  	  		<u>DISCLAIMER</u>: We use Javascript to enhance your viewing experience. Unexpected results may arise when if you disable Javascript on your browser.
+  	  		<br><br>
+  	  		Please enable Javascript on your browser to enjoy full functionalities of this site.
+  	  	</strong>
+  		</div>
+
+  		<div id="flash">
+  		  <% flash.each do |key, value| %>
+  		  	<div class="alert alert-<%= key %>"><%= value %></div>
+  		  <% end %>
+  		</div>
+			
+    	<%= yield %>
+
+  	</div>
+  </body>
+</html>

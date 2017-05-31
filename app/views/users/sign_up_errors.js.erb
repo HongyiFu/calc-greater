@@ -1,0 +1,16 @@
+$('#signUpModal label').css("background-color","transparent")
+$('#signUpModal div.user_email p').remove()
+$('#signUpModal div.user_username p').remove()
+$('#signUpModal div.user_password p').remove()
+$('#signUpModal div.user_password_confirmation p').remove()
+
+if ($('#signUpModal input[name="user[username]"]').val() === "") {
+	$('#signUpModal input[name="user[username]"]').val('<%= j @user.username %>')
+}
+<% h = @user.errors.messages.stringify_keys %>
+<% h.keys.each do |error| %>
+	var key = '<%= j error %>'
+	var value = '<%= j "#{error.titleize} #{h[error].join(" and ")}." %>' 
+	$('#signUpModal label[for="user_' + key + '"]').css("background-color","red")
+	$('#signUpModal div.user_' + key).append("<p class='help-block'>" + value + "</p>")
+<% end %>

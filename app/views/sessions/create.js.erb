@@ -1,0 +1,6 @@
+$('#signInModal').modal('hide');
+$('#flash').html("<div class='alert alert-success'>Successful sign in!</div>")
+$('ul.nav.navbar-nav.navbar-right li.dropdown a.dropdown-toggle').html("You are signed in as " + "<%= j @user.username %>" + " <span class='caret'></span>")
+$('ul.nav.navbar-nav.navbar-right ul.dropdown-menu li:first-child').html("<a href='/profile'>Profile</a>")
+$('ul.nav.navbar-nav.navbar-right ul.dropdown-menu li:last-child').html("<a rel='nofollow' data-method='delete' href='/session'>Sign Out</a>")
+setTimeout(function(){$('#flash').fadeOut('slow')},10000)

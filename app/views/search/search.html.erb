@@ -1,0 +1,26 @@
+<h2>Search results:</h2>
+
+<h4><u>Note</u>: This functionality is in beta mode. Only stocks from major stock exchange can be queried (not including Bursa Malaysia).</h4>
+
+<p><u>Tips</u>: You can query multiple stock by chaining the stocks symbols with '+'.</p>
+<p>For example: Searching AAPL+GOOG+MSFT will return the ask and bid prices for Apple Inc, Alphabet Inc, and Microsoft Corportation.</p>
+
+<br><br><br>
+
+<% if @arr.nil? %>
+	<h4>No search result to display. Search by typing stock symbols into the search bar.</h4>
+<% else %>
+	<ul>
+		<% @arr.each do |a| %>
+			<li>
+				<p>Company name: <%= a[0] %></p>
+				<p>Stock Exchange: <%= a[1] %></p>
+				<p>Ask Price: <%= a[2] %></p>
+				<p>Bid Price: <%= a[3] %></p>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
+
+

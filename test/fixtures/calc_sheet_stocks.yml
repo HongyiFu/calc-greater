@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calc_sheet: one
+  stock: one
+  bought_price: MyString
+  sold_price: MyString
+  volume: 1
+
+two:
+  calc_sheet: two
+  stock: two
+  bought_price: MyString
+  sold_price: MyString
+  volume: 1

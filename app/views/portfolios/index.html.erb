@@ -1,0 +1,21 @@
+<h1>Your portfolios:</h1>
+
+<% if @portfolios.count == 0 %>
+	<p>You do not have any portfolios yet. Why not make one?</p>
+<% else %>
+	<ol>
+		<% @portfolios.each do |p| %>
+			<li>
+				<div>
+					<p>Portfolio name: <%= link_to "#{p.name}", portfolio_path(p) %></p>
+					<br>
+					<p>Portfolio Description: <%= p.description %></p>
+					<br>
+					<p>Portfolio current standing: <%= number_to_currency(p.cash, precision:2) %></p>
+				</div>
+			</li>
+		<% end %>
+	</ol>
+<% end %>
+	
+<%= link_to "Make new portfolio", new_portfolio_path %>

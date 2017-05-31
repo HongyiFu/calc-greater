@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-4">
+		<h2>Calculate Your Estimated Savings</h2>
+		<div style="border: 3px solid #7ba4e5; padding: 20px;">
+			<%= form_tag '/compute-return', remote:true do %>
+			  <%= label_tag :num_of_yrs, "Enter the number of years you want to save for:" %>
+			  <%= number_field_tag :num_of_yrs, nil, class:"form-control", min: 1 %>
+			  <br><br>
+			  <%= label_tag :starting_amt, "How much is your starting capital?" %>
+			  <div><b>Amount:</b><span style="margin-left:60px;"><b>$&nbsp;&nbsp;</b> <%= number_field_tag :starting_amt, nil, class:'form-inline', min: 0, step: :any %></span></div>
+				<br><br>
+			  <%= label_tag :contribution, "How much will you contribute?" %>
+			  <div><b>Amount:</b><span style="margin-left:60px;"><b>$&nbsp;&nbsp;</b> <%= number_field_tag :contribution, nil, class:"form-inline", min: 0, step: :any %></div>
+			  <%= label_tag :contribute_monthly_or_yearly_0, "Annually", style:'margin-left:140px;' %>
+			  <%= radio_button_tag :contribute_monthly_or_yearly, 0, true %>&nbsp;&nbsp;&nbsp;
+			  <%= label_tag :contribute_monthly_or_yearly_1, "Monthly" %>
+			  <%= radio_button_tag :contribute_monthly_or_yearly, 1 %>
+				<br><br>
+			  <%= label_tag :rate_of_return, "Estimated Return: " %>
+				<%= number_field_tag :rate_of_return, nil, class:"form-inline", style:"margin-right:3px", min: 0, step: :any, placeholder: "5.0" %><b>%</b>
+				<%= label_tag :monthly_or_yearly_0, "Annually", style:'margin-left:140px;' %>
+			  <%= radio_button_tag :monthly_or_yearly, 0, true %>&nbsp;&nbsp;&nbsp;
+			  <%= label_tag :monthly_or_yearly_1, "Monthly" %>
+			  <%= radio_button_tag :monthly_or_yearly, 1 %>
+			  <br><br>
+			  <ul>
+			  	<li><i>The return on KLCI index for the last 10 years is about 5% per annum.</i></li>
+			  	<li><i><u>Reminder</u>: Rate of return of 5% p.a. is roughly equivalent to 0.40741% per month. It is not the same as 5% divided by 12.</i></li>
+			  </ul>
+				<br>
+			  <%= submit_tag "Calculate" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="for-append col-md-8" style="padding-left:100px;">
+		
+	</div>
+</div>
+

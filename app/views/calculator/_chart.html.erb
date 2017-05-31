@@ -1,0 +1,31 @@
+<% yearly_networth = @array[4] %>
+
+<div style='text-align:center; padding-left: 90px;'>
+	<h3>In <%= @array[4].length - 1 %> years, your investment could be worth <%= number_to_currency(@array[0]) %>!</h3>
+	<div class="row">
+		<div class="col-md-4" style="border: 1px dotted;">
+			<h4>INITIAL CAPITAL</h4>
+			<p><i><%= number_to_currency @array[1] %></i></p>
+			<p><%= (@array[1]*100.0/@array[0]).round(2) %>% OUT OF TOTAL</p>
+		</div>
+		<div class="col-md-4" style="border: 1px dotted;">
+			<h4>CONTRIBUTIONS</h4>
+			<p><i><%= number_to_currency @array[2] %></i></p>
+			<p><%= (@array[2]*100.0/@array[0]).round(2) %>% OUT OF TOTAL</p>
+		</div>
+		<div class="col-md-4" style="border: 1px dotted;">
+			<h4>GROWTH</h4>
+			<p><i><%= number_to_currency @array[3] %></i></p>
+			<p><%= (@array[3]*100.0/@array[0]).round(2) %>% OUT OF TOTAL</p>
+		</div>
+	</div>
+</div>
+
+<%= column_chart(@array[4], xtitle: "Year", label: "Portfolio worth ($)", legend: "right", width:"800px", height: "500px", library: {backgroundColor: "#eee"}) %>
+<%= pie_chart({"INITIAL CAPITAL":@array[1], "CONTRIBUTIONS":@array[2], "INTERESTS":@array[3]}) %>
+<br><br>
+<div style='text-align:center; font-size:20px; margin-bottom:100px'>
+	<p>What if you give up on your daily coffee purchases?</p>
+	<p>Or cut down on the weekly restaurant visits?</p>
+	<p>How much more can you save? Let's try it out with an additional contribution of $100 !</p>
+</div>

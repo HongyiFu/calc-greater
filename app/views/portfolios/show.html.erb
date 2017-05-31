@@ -1,0 +1,15 @@
+<h3>Portfolio: <%= @portfolio.name %></h3>
+
+<h4>Description: <%= @portfolio.description %></h4>
+<h4>Portfolio current standing: <%= number_to_currency(@portfolio.cash, precision:2) %></h4>
+
+<% transactions = @portfolio.transactions %>
+
+<h3>Your transactions for the portfolio:</h3>
+<% if transactions.count == 0 %>
+	<p>There are no transactions yet.</p>
+<% else %>
+	<% transactions.each do |t| %>
+		
+	<% end %>
+<% end %>

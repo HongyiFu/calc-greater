@@ -1,0 +1,4 @@
+$('label').css("background-color","transparent")
+<% @array.each do |key| %>
+	$('label[for="<%= j key %>"]').css("background-color","red")
+<% end %>

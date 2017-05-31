@@ -1,0 +1,8 @@
+<h1>Create new portfolios:</h1>
+
+<%= simple_form_for @portfolio do |f| %>
+	<%= f.input :name, label: 'Name for your portfolio' %>
+  <%= f.input :description, label: "Description of what the portfolio does" %>
+  <%= f.input :cash, label: "Starting cash or starting position of portfolio", placeholder: '1000', hint:"No special characters other than period for decimal." %>
+  <%= f.button :submit %>
+<% end %>
