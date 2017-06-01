@@ -47,6 +47,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'guard-rspec'
   gem 'rb-fsevent'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -73,3 +74,4 @@ gem 'omniauth-facebook'
 gem "chartkick"
 
 gem 'rest-client'
+
