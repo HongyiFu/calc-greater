@@ -31,9 +31,10 @@ RSpec.describe "static/home.html.erb", type: :feature do
       expect(page).to have_css("#signUpModal", visible:true)
     end
 
-    let(:email) { "jesus@church.com" }
-    let(:password) { "jesus-password" }
+    let(:email) { "jesuss@church.com" }
+    let(:password) { "jesuss-password" }
     it "will sign up properly", js:true do
+      User.delete_all
       click_link 'You are not signed in'
       find(:css, 'a[data-target="#signUpModal"]').click  
       fill_in "Email", with:email
