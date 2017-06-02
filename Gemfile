@@ -48,6 +48,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rb-fsevent'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :development do
